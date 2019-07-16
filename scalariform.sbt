@@ -12,3 +12,4 @@ scalariformPreferences :=
     .setPreference(MultilineScaladocCommentsStartOnFirstLine, true)
     .setPreference(NewlineAtEndOfFile, true)
     .setPreference(PlaceScaladocAsterisksBeneathSecondAsterisk, true)
+     

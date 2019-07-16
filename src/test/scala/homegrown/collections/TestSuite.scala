@@ -7,6 +7,7 @@ class TestSuite extends FunSuite with Matchers {
     Set.empty(randomElement) shouldBe false
   }
 
+  // private methode
   private def randomElement: String =
     scala.util.Random.alphanumeric.take(5).mkString
 }

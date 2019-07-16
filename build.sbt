@@ -20,4 +20,4 @@ libraryDependencies ++=
 
 autoCompilerPlugins := true
 
-//autocompilation start with at the sbt prompt by ~test
+//autocompilation start with at the sbt prompt by ~test 
