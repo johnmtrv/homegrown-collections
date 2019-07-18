@@ -2,9 +2,9 @@ import homegrown.collections._
 
 import org.scalatest._
 
-class TestSuite extends FunSuite with Matchers {
+class OldTestSuite extends FunSuite with Matchers {
   test("1. apply on empty set should yield false") {
-    Set.empty(randomElement) shouldBe false
+    OldSet.empty(randomElement) shouldBe false
   }
 
   test("2. add on an empty set should yield a new Set with a new element") {
@@ -14,7 +14,7 @@ class TestSuite extends FunSuite with Matchers {
 
     first should not be second
 
-    val set = Set.empty.add(first)
+    val set = OldSet.empty.add(first)
     set(first) shouldBe true
     set(second) shouldBe false
 
@@ -36,7 +36,7 @@ class TestSuite extends FunSuite with Matchers {
   test("4. remove on a non empty set should yield a new Set without the element") {
     val element = randomElement
 
-    val setWithElement = Set.empty.add(element)
+    val setWithElement = OldSet.empty.add(element)
 
     setWithElement(element) shouldBe true
 
@@ -53,7 +53,7 @@ class TestSuite extends FunSuite with Matchers {
 
     first should not be second
 
-    val setWithElement = Set.empty.add(first).add(second)
+    val setWithElement = OldSet.empty.add(first).add(second)
 
     setWithElement(first) shouldBe true
     setWithElement(second) shouldBe true
@@ -64,21 +64,13 @@ class TestSuite extends FunSuite with Matchers {
     setWithoutElement(second) shouldBe true
   }
 
-  test("5B add/remove combo should ensure that all elements are distinct") {
-    val element = randomElement
-
-    val set = Set.empty.add(element).add(element).remove(element)
-
-    set(element) shouldBe false
-  }
-
   test("6. remove removes only the element in question v2") {
     val first = randomElement
     val second = randomElement
 
     first should not be second
 
-    val setWithElement = Set.empty.add(first).add(second)
+    val setWithElement = OldSet.empty.add(first).add(second)
 
     setWithElement(first) shouldBe true
     setWithElement(second) shouldBe true
@@ -89,20 +81,8 @@ class TestSuite extends FunSuite with Matchers {
     setWithoutElement(second) shouldBe false
   }
 
-  test("7A. union on empty set should yield on empty set") {
-    Set.empty.union(Set.empty)(randomElement) shouldBe false
-
-    val empty = Set.empty
-    val union = Set.empty.union(empty)
-
-    empty.isSubsetOf(union) shouldBe true
-    union.isSubsetOf(empty) shouldBe true
-
-    Set.empty.union(Set.empty) shouldBe Set.empty
-  }
-
   test("7. union an empty set should yield an empty set ") {
-    Set.empty.union(Set.empty)(randomElement) shouldBe false
+    OldSet.empty.union(OldSet.empty)(randomElement) shouldBe false
   }
   test("8. union on a non empty Set with an empty set should yield the original Set untouched") {
     val first = randomString
@@ -110,7 +90,7 @@ class TestSuite extends FunSuite with Matchers {
 
     first should not be second
 
-    val emptySet = Set.empty
+    val emptySet = OldSet.empty
     val nonEmptySet = emptySet.add(first).add(second)
     emptySet.union(nonEmptySet)(first) shouldBe true
     emptySet.union(nonEmptySet)(second) shouldBe true
@@ -127,37 +107,18 @@ class TestSuite extends FunSuite with Matchers {
     val c = randomElement
     val d = randomElement
 
-    val left = Set.empty.add(a).add(b)
-    val right = Set.empty.add(c).add(d)
+    val left = OldSet.empty.add(a).add(b)
+    val right = OldSet.empty.add(c).add(d)
     val union = left.union(right)
 
     union(a) shouldBe true
     union(b) shouldBe true
     union(c) shouldBe true
     union(d) shouldBe true
-
-    left.union(right) shouldBe Set.empty.add(a).add(b).add(c).add(d)
-    right.union(left) shouldBe Set.empty.add(a).add(b).add(c).add(d)
-  }
-  test("9B debug union") {
-    println("test 9b")
-
-    val a = randomElement
-    val b = randomElement
-    val c = randomElement
-    val d = randomElement
-
-    val left = Set.empty.add(a).add(b)
-    val right = Set.empty.add(c).add(d)
-    println("------------")
-    println(left)
-    println(right)
-    val set2 = left.union(right)
-    println("-------------", set2)
   }
 
   test("10. intersection on empty Set should yield an empty Set") {
-    Set.empty.intersection(Set.empty)(randomElement) shouldBe false
+    OldSet.empty.intersection(OldSet.empty)(randomElement) shouldBe false
   }
 
   test("11. intersection on a non empty Set with an empty Set should yield an empty Set") {
@@ -166,7 +127,7 @@ class TestSuite extends FunSuite with Matchers {
 
     first should not be second
 
-    val emptySet = Set.empty
+    val emptySet = OldSet.empty
     val nonEmptySet = emptySet.add(first).add(second)
     emptySet.intersection(nonEmptySet)(first) shouldBe false
     emptySet.intersection(nonEmptySet)(second) shouldBe false
@@ -182,8 +143,8 @@ class TestSuite extends FunSuite with Matchers {
     val c = randomElement
     val d = randomElement
 
-    val left = Set.empty.add(a).add(b).add(c)
-    val right = Set.empty.add(c).add(d).add(b)
+    val left = OldSet.empty.add(a).add(b).add(c)
+    val right = OldSet.empty.add(c).add(d).add(b)
     val intersection = left.intersection(right)
 
     intersection(a) shouldBe false
@@ -193,7 +154,7 @@ class TestSuite extends FunSuite with Matchers {
   }
 
   test("13. difference on empty Set should yield an empty Set") {
-    Set.empty.difference(Set.empty)(randomElement) shouldBe false
+    OldSet.empty.difference(OldSet.empty)(randomElement) shouldBe false
   }
 
   test("14. difference on a non empty Set with an empty Set should yield an empty Set") {
@@ -202,7 +163,7 @@ class TestSuite extends FunSuite with Matchers {
 
     first should not be second
 
-    val emptySet = Set.empty
+    val emptySet = OldSet.empty
     val nonEmptySet = emptySet.add(first).add(second)
 
     emptySet.difference(nonEmptySet)(first) shouldBe false
@@ -218,8 +179,8 @@ class TestSuite extends FunSuite with Matchers {
     val c = randomElement
     val d = randomElement
 
-    val left = Set.empty.add(a).add(b).add(c)
-    val right = Set.empty.add(c).add(d).add(b)
+    val left = OldSet.empty.add(a).add(b).add(c)
+    val right = OldSet.empty.add(c).add(d).add(b)
     val leftDifference = left.difference(right)
 
     leftDifference(a) shouldBe true
@@ -234,69 +195,13 @@ class TestSuite extends FunSuite with Matchers {
     rightDifference(c) shouldBe false
     rightDifference(d) shouldBe true
   }
-  // isSubSetOf
+
   test("16 isSubsetOf on an empty Set should yield true") {
-
-    Set.empty.isSubsetOf(Set.empty) shouldBe true
-    Set.empty.isSubsetOf(Set.empty.add(randomString)) shouldBe true
+    pending
+    OldSet.empty.isSubsetOf(OldSet.empty) shouldBe true
+    OldSet.empty.isSubsetOf(OldSet.empty.add(randomString)) shouldBe true
   }
-
-  test("17. isSubSetOf on itself should return true") {
-    val a = randomElement
-    val b = randomElement
-    val c = randomElement
-    val d = randomElement
-
-    val set = Set.empty.add(a).add(b).add(c).add(d)
-
-    set.isSubsetOf(set) shouldBe true
-  }
-
-  test("18. isSubSetOf on subset should return true") {
-    val a = randomElement
-    val b = randomElement
-    val c = randomElement
-    val d = randomElement
-
-    val set = Set.empty.add(a).add(b).add(c).add(d)
-    val subset = Set.empty.add(b).add(d)
-    subset.isSubsetOf(set) shouldBe true
-    set.isSubsetOf(subset) shouldBe false
-
-  }
-
-  // isSuperSet
-  test("16 isSuperSet on an empty Set should yield true") {
-
-    Set.empty.isSuperSet(Set.empty) shouldBe true
-    Set.empty.isSuperSet(Set.empty.add(randomString)) shouldBe true
-  }
-
-  test("17. isSuperSet on itself should return true") {
-    val a = randomElement
-    val b = randomElement
-    val c = randomElement
-    val d = randomElement
-
-    val set = Set.empty.add(a).add(b).add(c).add(d)
-
-    set.isSuperSet(set) shouldBe true
-  }
-
-  test("18. isSuperSet on subset should return true") {
-    val a = randomElement
-    val b = randomElement
-    val c = randomElement
-    val d = randomElement
-
-    val set = Set.empty.add(a).add(b).add(c).add(d)
-    val subset = Set.empty.add(b).add(d)
-    subset.isSuperSet(set) shouldBe false
-    set.isSuperSet(subset) shouldBe true
-
-  }
-
-  // util method
+  // private methode
   private def randomElement: String =
     scala.util.Random.alphanumeric.take(5).mkString
 
